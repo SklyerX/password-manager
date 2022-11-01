@@ -22,21 +22,21 @@ function execute(command, callback) {
 }
 
 const createWindow = () => {
-  const backendExists = fs.existsSync(
-    `${os.homedir()}/Desktop/signature-backend`
-  );
+  // const backendExists = fs.existsSync(
+  //  `${os.homedir()}/Desktop/signature-backend`
+  // );
 
-  if (backendExists) {
-    execute(
-      `cd ${os.homedir()}/Desktop/signature-backend/server && npm start`,
-      (output) => {
-        console.log(output);
-      }
-    );
-  } else {
-    console.log("Backend not found...");
-    return 0;
-  }
+  // if (backendExists) {
+  //  execute(
+  //    `cd ${os.homedir()}/Desktop/signature-backend/server && npm start`,
+  //    (output) => {
+  //      console.log(output);
+  //    }
+  // );
+  // } else {
+  //  console.log("Backend not found...");
+  //  return 0;
+  // }
 
   const bounds = getWindowSettings();
   const position = getWindowPosition();
