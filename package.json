@@ -2,7 +2,14 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "homepage": "./",
+  "main": "./public/electron.js",
+  "author": "SkylerX",
   "dependencies": {
+    "@electron/remote": "^2.0.8",
+    "@emotion/react": "^11.10.4",
+    "@mantine/core": "^5.6.0",
+    "@mantine/hooks": "^5.6.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -10,9 +17,17 @@
     "@types/node": "^16.11.68",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
+    "@types/react-toastify": "^4.1.0",
+    "adm-zip": "^0.5.9",
+    "axios": "^1.1.3",
+    "electron-is-dev": "^2.0.0",
+    "electron-store": "^8.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.4.2",
     "react-scripts": "5.0.1",
+    "react-toastify": "^9.0.8",
+    "sass": "^1.55.0",
     "typescript": "^4.8.4",
     "web-vitals": "^2.1.4"
   },
@@ -20,7 +35,18 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "electron": "electron .",
+    "electron:pack": "electron-builder --dir",
+    "electron:dist": "electron-builder",
+    "electron:serve": "concurrently \"npm start\" \"wait-on http://localhost:3000 && npm run electron\""
+  },
+  "build": {
+    "appId": "app.skylerx.netlify",
+    "extends": null,
+    "mac": {
+      "category": "password.manager"
+    }
   },
   "eslintConfig": {
     "extends": [
@@ -39,5 +65,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "concurrently": "^7.4.0",
+    "cross-env": "^7.0.3",
+    "electron": "^21.1.1",
+    "electron-builder": "^23.6.0",
+    "wait-on": "^6.0.1"
   }
 }

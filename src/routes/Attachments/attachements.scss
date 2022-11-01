@@ -1,0 +1,72 @@
+.attachments {
+  margin-top: 2rem;
+
+  .upload {
+    display: none;
+  }
+
+  .upload-btn {
+    background-color: cadetblue;
+    width: fit-content;
+    height: fit-content;
+    padding: 10px 12px;
+    border-radius: 5px;
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    transition: 0.3s background ease;
+
+    i {
+      color: #fff;
+    }
+
+    &:hover {
+      cursor: pointer;
+      background-color: rgb(68, 121, 123);
+    }
+  }
+
+  .images {
+    display: grid;
+    place-items: center;
+    grid-template-columns: 1fr;
+    gap: 10px;
+
+    .image {
+      img {
+        width: 40rem;
+        border-radius: 5px;
+      }
+
+      h3 {
+        color: #fff;
+      }
+
+      .operation-name {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+        .dl {
+          color: cyan;
+
+          &:hover {
+            color: rgb(0, 153, 153);
+          }
+        }
+
+        i {
+          color: #f00;
+          transition: 0.3s color ease;
+          margin-right: 1rem;
+
+          &:hover {
+            cursor: pointer;
+            color: rgb(141, 0, 0);
+          }
+        }
+      }
+    }
+  }
+}

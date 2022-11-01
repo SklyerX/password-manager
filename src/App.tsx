@@ -1,26 +1,109 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import Sidebar from "./components/Sidebar/Sidebar";
+import {
+  Attachments,
+  Dashboard,
+  Favourites,
+  Login,
+  Passwords,
+  Register,
+  Settings,
+  Setup,
+} from "./routes/exports";
+import { checkTokenValidity } from "./utils/api";
 
-function App() {
+// POLAR MOVIE
+
+export default function App() {
+  const [authorized, setAuthorized] = React.useState<boolean>(false);
+
+  React.useEffect(() => {
+    const Token = window.localStorage.getItem("token");
+    if (Token === null || Token === undefined) {
+      return setAuthorized(false);
+    }
+    checkTokenValidity(`${Token}`)
+      .then((res: any) => {
+        if (res.data.success === true) {
+          setAuthorized(true);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        window.location.replace("/login");
+        window.localStorage.removeItem("token");
+        return setAuthorized(false);
+      });
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            authorized ? (
+              <>
+                <Sidebar />
+                <Dashboard />
+              </>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/passwords"
+          element={
+            <>
+              <Sidebar />
+              <Passwords />
+            </>
+          }
+        />
+        <Route
+          path="/attachments"
+          element={
+            <>
+              <Sidebar />
+              <Attachments />
+            </>
+          }
+        />
+        <Route
+          path="/favourites"
+          element={
+            <>
+              <Sidebar />
+              <Favourites />
+            </>
+          }
+        />
+        <Route
+          path="/settings"
+          element={
+            <>
+              <Sidebar />
+              <Settings />
+            </>
+          }
+        />
+        <Route
+          path="/login"
+          element={authorized ? <Navigate to="/" /> : <Login />}
+        />
+        <Route
+          path="/register"
+          element={authorized ? <Navigate to="/" /> : <Register />}
+        />
+        <Route path="/*" element={<Navigate to="/" />} />
+      </Routes>
+    </Router>
   );
 }
-
-export default App;
